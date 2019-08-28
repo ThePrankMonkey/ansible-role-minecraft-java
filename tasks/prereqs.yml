@@ -1,0 +1,25 @@
+---
+# tasks file for minecraft :: prereqs
+- debug:
+    msg:
+      - "################################"
+      - "##                            ##"
+      - "##    minecraft :: prereqs    ##"
+      - "##                            ##"
+      - "################################"
+- name: Download packages
+  apt:
+    state: present
+    name:
+      - openjdk-11-jdk
+      - tmux
+      - wget
+  become: yes
+- name: Create Minecraft user
+  user:
+    name: "{{ users_minecraft.minecraft }}"
+    shell: /bin/bash
+    state: present
+    system: yes
+    password: "{{ passwords_minecraft.minecraft }}"
+  become: yes

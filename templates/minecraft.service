@@ -1,0 +1,19 @@
+[Unit]
+Description=Minecraft Bedrock Server
+After=network.target
+
+[Service]
+Type=simple
+PrivateUsers=true
+User={{ users_minecraft.minecraft }}
+Group={{ users_minecraft.minecraft }}
+ProtectSystem=full
+ProtectHome=true
+ExecStart=/bin/bash {{ paths_minecraft.scripts }}/start.sh
+ExecReload=/bin/bash {{ paths_minecraft.scripts }}/restart.sh
+ExecStop=/bin/bash {{ paths_minecraft.scripts }}/stop.sh
+Restart=on-failure
+RestartSec=60s
+
+[Install]
+WantedBy=multi-user.target

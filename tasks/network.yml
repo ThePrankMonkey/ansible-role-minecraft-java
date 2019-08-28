@@ -1,0 +1,27 @@
+---
+# tasks file for minecraft :: config
+- debug:
+    msg:
+      - "################################"
+      - "##                            ##"
+      - "##    minecraft :: network    ##"
+      - "##                            ##"
+      - "################################"
+- name: Add Minecraft UFW ipv4 Service
+  template:
+    src: minecraft-v4
+    dest: "/etc/ufw/applications.d/{{ network_minecraft.ipv4.name }}"
+  become: yes
+  register: network_minecraft_v4
+- name: Activate UFW Services
+  ufw:
+    name: "{{ item }}"
+    policy: allow
+  loop:
+    - "{{ network_minecraft.ipv4.name }}"
+    - openssh-server
+  become: yes
+- name: Activate UFW
+  ufw:
+    state: enabled
+  become: yes

@@ -1,0 +1,4 @@
+[{{ network_minecraft.ipv4.name }}]
+title={{ network_minecraft.ipv4.name }}
+description=Minecraft is a game server.
+ports={{network_minecraft.ipv4.port}}/tcp

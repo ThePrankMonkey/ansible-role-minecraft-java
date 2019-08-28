@@ -1,0 +1,17 @@
+---
+# defaults file for minecraft
+users_minecraft:
+  minecraft: minecraft
+links_minecraft:
+  minecraft: https://launcher.mojang.com/v1/objects/3dc3d84a581f14691199cf6831b71ed1296a9fdf/server.jar
+  buildtool: https://hub.spigotmc.org/jenkins/job/BuildTools/lastSuccessfulBuild/artifact/target/BuildTools.jar
+  multiverse-core: https://media.forgecdn.net/files/2768/599/Multiverse-Core-4.1.0.jar
+  multiverse-portals: https://media.forgecdn.net/files/2768/601/Multiverse-Portals-4.1.0.jar
+paths_minecraft:
+  install: "/home/{{ users_minecraft.minecraft }}/server/"
+  file: "/home/{{ users_minecraft.minecraft }}/server/minecraft-server.jar"
+  scripts: "/home/{{ users_minecraft.minecraft }}/scripts"
+network_minecraft:
+  ipv4:
+    name: minecraft_ipv4
+    port: 25565

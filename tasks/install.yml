@@ -1,0 +1,31 @@
+---
+# tasks file for minecraft :: install
+- debug:
+    msg:
+      - "################################"
+      - "##                            ##"
+      - "##    minecraft :: install    ##"
+      - "##                            ##"
+      - "################################"
+- name: Make Server folder
+  file:
+    state: directory
+    path: "{{ paths_minecraft.install }}"
+    owner: "{{ users_minecraft.minecraft }}"
+    group: "{{ users_minecraft.minecraft }}"
+  become: yes
+- name: Make Scripts Folder
+  file:
+    state: directory
+    path: "{{ paths_minecraft.scripts }}"
+    owner: "{{ users_minecraft.minecraft }}"
+    group: "{{ users_minecraft.minecraft }}"
+  become: yes
+# java -Xmx1024M -jar BuildTools.jar
+- name: Download Minecraft Server
+  get_url:
+    url: "{{ links_minecraft.minecraft }}"
+    dest: "{{ paths_minecraft.file }}"
+    owner: "{{ users_minecraft.minecraft }}"
+    group: "{{ users_minecraft.minecraft }}"
+  become: yes

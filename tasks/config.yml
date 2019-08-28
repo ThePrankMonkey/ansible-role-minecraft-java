@@ -1,0 +1,44 @@
+---
+# tasks file for minecraft :: config
+- debug:
+    msg:
+      - "###############################"
+      - "##                           ##"
+      - "##    minecraft :: config    ##"
+      - "##                           ##"
+      - "###############################"
+- name: Add Scripts
+  template:
+    src: "{{ item }}"
+    dest: "{{ paths_minecraft.scripts }}/{{ item }}"
+    owner: "{{ users_minecraft.minecraft }}"
+    group: "{{ users_minecraft.minecraft }}"
+    mode: '0744'
+  loop:
+    - start.sh
+    - restart.sh
+    - stop.sh
+  become: yes
+# - name: Update Server.Properties
+#   template:
+#     src: server.properties
+#     dest: "{{ paths_minecraft.install }}/server.properties"
+#     owner: "{{ users_minecraft.minecraft }}"
+#     group: "{{ users_minecraft.minecraft }}"
+#   become: yes
+- name: Accept EULA
+  copy:
+    src: eula.txt
+    dest: "{{ paths_minecraft.install }}/eula.txt"
+- name: Make Systemd Service for Minecraft
+  template:
+    src: minecraft.service
+    dest: /etc/systemd/system/minecraft.service
+  become: yes
+- name: Start Minecraft Service
+  systemd:
+    state: started
+    daemon_reload: yes
+    enabled: yes
+    name: minecraft
+  become: yes
